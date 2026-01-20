@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>توقعات AI – إيداع</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+    .console-box {
+      font-family: monospace; /* يبقى الخط الأحادي للكونسول */
+      background-color: #1a1a1a;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 20px #00ff88;
+      color: #00ff88;
+      height: 250px;
+      overflow-y: auto;
+      direction: ltr; /* الكونسول عادة يفضل أن يكون LTR للأرقام والكود، لكن النصوص عربية */
+      text-align: right; /* محاذاة النص لليمين */
+    }
+    .loading-screen {
+      font-family: monospace;
+      background: #000;
+      color: #00ff88;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      z-index: 50;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    .hidden-screen { display: none; }
+    
+    /* تعديل للمسافات في الوضع العربي */
+    .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+      --tw-space-x-reverse: 0;
+      margin-right: calc(1rem * var(--tw-space-x-reverse));
+      margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+    }
+    [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+      --tw-space-x-reverse: 1;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+  <div id="loading" class="loading-screen">
+    <p class="text-center px-4">جاري التحميل... يرجى الانتظار بينما نجهز تجربتك.</p>
+  </div>
+  <div id="mainContent" class="hidden-screen">
+    <header class="w-full bg-gray-800 p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-green-400">توقعات 1xBet الذكية</h1>
+      <nav class="space-x-4 flex">
+        <a href="#how" class="hover:text-green-400 mr-4">كيف يعمل</a>
+        <a href="#games" class="hover:text-green-400">الألعاب</a>
+        <a href="#start" class="hover:text-green-400">ابدأ</a>
+      </nav>
+    </header>
+    <section class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+        اربح أموالاً حقيقية مع توقعات <br>الذكاء الاصطناعي للألعاب
+      </h2>
+      <div class="mb-4 text-lg font-semibold text-yellow-300">
+        👋 مرحبًا بك في الخدمة الرسمية لـ <span class="text-green-400">أحمد رحمن</span>!
+      </div>
+      <p class="max-w-xl mb-8 text-gray-300">
+        انضم إلى آلاف المستخدمين الذين يحققون أرباحًا بفضل ذكائنا الاصطناعي في ألعاب Aviator و Mines و Penalty. دقة 98%، توقعات فورية، وسحب فوري للأرباح!
+      </p>
+      <input id="userId" type="text" placeholder="أدخل معرف 1xBet الخاص بك (ID)" class="bg-gray-700 text-white p-3 rounded-md mb-4 w-full max-w-xs text-center" />
+      <button id="connectButton" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-xl text-lg transition shadow-lg">ربط الحساب</button>
+      <div id="connectionSuccess" class="hidden text-green-400 font-bold mt-6">
+        <p>معرف الحساب: <span id="accountIdDisplay" class="font-mono">1234567890</span> تم الربط بنجاح!</p>
+        <p class="text-sm mt-2 opacity-90">الحالة: نشط | دقة التوقعات 100% | تم تحليل الخوارزميات</p>
+        <button id="getSignalButton" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-xl text-lg transition mt-4 shadow-lg animate-pulse">احصل على الإشارة</button>
+      </div>
+      <div id="errorBox" class="hidden bg-red-600 p-6 rounded-xl max-w-md mx-auto mt-6 shadow-2xl border-2 border-red-400">
+        <h2 class="text-xl font-bold mb-2">⚠️ لم يتم العثور على إيداع</h2>
+        <p class="mb-4">يبدو أن رصيدك فارغ. يرجى إيداع ما لا يقل عن <strong>5 دينار بحريني (أو أكثر)</strong> لفتح الوصول إلى الإشارات والبدء في تحقيق الأرباح.</p>
+        <a href="https://reffpa.com/L?tag=d_5134716m_45425c_&site=5134716&ad=45425&r=registration" target="_blank" id="depositButton" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition transform hover:scale-105">
+          أودع الآن في 1xBet
+        </a>
+        <div class="mt-6 bg-red-900 bg-opacity-60 text-white p-4 rounded-lg font-bold text-center border border-red-400">
+          <div class="mb-1 text-lg">الرمز الترويجي الخاص بك: <span class="bg-black p-1 px-2 rounded text-green-400 font-mono select-all">JOS88</span></div>
+          <div class="text-sm mt-2">تذكر التسجيل <span class="underline text-yellow-300">فقط</span> بهذا الرمز للوصول الكامل إلى جميع الميزات!</div>
+        </div>
+      </div>
+    </section>
+    <section class="bg-gray-800 py-12 px-6 text-center">
+      <h3 class="text-2xl font-bold text-green-400 mb-6">الفائزون اليوم (BHD)</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-right max-w-4xl mx-auto text-sm text-green-300" dir="ltr">
+        <p class="text-right">👤 المستخدم: 1218473422 – <span class="text-white">2,100 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 9912384741 – <span class="text-white">1,850 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 3099234822 – <span class="text-white">1,120 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 1187339121 – <span class="text-white">850 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 4412900113 – <span class="text-white">1,050 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 8283721091 – <span class="text-white">1,540 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 7751937742 – <span class="text-white">905 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 5554921811 – <span class="text-white">780 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 1983238742 – <span class="text-white">650 BHD</span></p>
+        <p class="text-right">👤 المستخدم: 3377749301 – <span class="text-white">600 BHD</span></p>
+      </div>
+    </section>
+    <section id="games" class="bg-gray-800 py-12 px-6 text-center">
+      <h3 class="text-2xl font-bold text-green-400 mb-6">الألعاب المدعومة</h3>
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="bg-gray-700 p-6 rounded-xl shadow-lg border border-gray-600">
+          <h4 class="text-xl font-bold mb-2">🎮 Aviator</h4>
+          <p class="text-gray-300 text-sm">تنبأ بموعد السحب قبل إقلاع الطائرة. الذكاء الاصطناعي يكتشف الأنماط في الوقت الفعلي.</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-xl shadow-lg border border-gray-600">
+          <h4 class="text-xl font-bold mb-2">💣 Mines</h4>
+          <p class="text-gray-300 text-sm">تجنب القنابل، وخذ أرباحك. نظامنا يجد المسارات منخفضة المخاطر لتحقيق أقصى ربح.</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-xl shadow-lg border border-gray-600">
+          <h4 class="text-xl font-bold mb-2">🥅 Penalty</h4>
+          <p class="text-gray-300 text-sm">اعرف أين تسدد أو تقفز. اهزم الحارس بتوقعات تعتمد على البيانات التاريخية.</p>
+        </div>
+      </div>
+    </section>
+    <section id="how" class="bg-gray-900 py-12 px-6 text-center">
+      <h3 class="text-2xl font-bold text-green-400 mb-6">كيف يعمل النظام؟</h3>
+      <div class="max-w-3xl mx-auto space-y-4 text-gray-300 text-lg">
+        <p>📡 يقوم الذكاء الاصطناعي بتحليل البيانات الحية وسجل الألعاب على مدار 24/7.</p>
+        <p>💡 يحدد الأنماط والخوارزميات التي تتيح تحقيق أرباح ثابتة.</p>
+        <p>📲 تتلقى إشارات موثوقة في الوقت الفعلي مباشرة إلى جهازك.</p>
+      </div>
+    </section>
+    <section class="bg-black py-12 px-6 text-center">
+      <h3 class="text-xl font-bold text-green-400 mb-4">[ وحدة التحكم – سجل المراقبة ]</h3>
+      <div class="console-box max-w-3xl mx-auto" id="console">
+        <p>> [INFO] خدمة التوقعات نشطة ✅</p>
+        <p>> [SYSTEM] الاتصال بالسيرفر البحريني... تم</p>
+        <p>> [AI] تحليل البيانات الجارية...</p>
+      </div>
+    </section>
+    <footer class="text-center text-gray-500 text-sm py-6 border-t border-gray-800">
+      © 2025 توقعات AI. هذا الموقع غير تابع لشركة 1xBet بشكل رسمي. يرجى اللعب بمسؤولية.
+    </footer>
+  </div>
+  <script>
+    setTimeout(() => {
+      document.getElementById("loading").classList.add("hidden-screen");
+      document.getElementById("mainContent").classList.remove("hidden-screen");
+    }, 3000);
+
+    document.getElementById("connectButton").addEventListener("click", () => {
+      const userId = document.getElementById("userId").value;
+      if (userId) {
+        document.getElementById("accountIdDisplay").innerText = userId;
+        document.getElementById("connectionSuccess").classList.remove("hidden");
+        document.getElementById("errorBox").classList.add("hidden");
+        
+        // محاكاة إضافة سطر في الكونسول
+        const consoleBox = document.getElementById("console");
+        const newLog = document.createElement("p");
+        newLog.innerText = `> [CONNECT] تم ربط المستخدم ${userId} بنجاح.`;
+        consoleBox.appendChild(newLog);
+      }
+    });
+
+    document.getElementById("getSignalButton").addEventListener("click", () => {
+      document.getElementById("errorBox").classList.remove("hidden");
+      
+      // محاكاة خطأ في الكونسول
+      const consoleBox = document.getElementById("console");
+      const errLog = document.createElement("p");
+      errLog.style.color = "red";
+      errLog.innerText = `> [ERROR] الرصيد غير كافٍ لسحب الإشارة. مطلوب إيداع.`;
+      consoleBox.appendChild(errLog);
+      consoleBox.scrollTop = consoleBox.scrollHeight;
+    });
+  </script>
+</body>
+</html>
