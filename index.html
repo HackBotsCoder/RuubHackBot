@@ -11,7 +11,7 @@
       font-family: 'Cairo', sans-serif;
     }
     .console-box {
-      font-family: monospace; /* يبقى الخط الأحادي للكونسول */
+      font-family: monospace;
       background-color: #1a1a1a;
       padding: 1rem;
       border-radius: 0.5rem;
@@ -19,8 +19,8 @@
       color: #00ff88;
       height: 250px;
       overflow-y: auto;
-      direction: ltr; /* الكونسول عادة يفضل أن يكون LTR للأرقام والكود، لكن النصوص عربية */
-      text-align: right; /* محاذاة النص لليمين */
+      direction: ltr; /* Консоль слева направо */
+      text-align: right;
     }
     .loading-screen {
       font-family: monospace;
@@ -39,7 +39,7 @@
     }
     .hidden-screen { display: none; }
     
-    /* تعديل للمسافات في الوضع العربي */
+    /* Исправление отступов для RTL */
     .space-x-4 > :not([hidden]) ~ :not([hidden]) {
       --tw-space-x-reverse: 0;
       margin-right: calc(1rem * var(--tw-space-x-reverse));
@@ -67,9 +67,11 @@
       <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">
         اربح أموالاً حقيقية مع توقعات <br>الذكاء الاصطناعي للألعاب
       </h2>
+      
       <div class="mb-4 text-lg font-semibold text-yellow-300">
-        👋 مرحبًا بك في الخدمة الرسمية لـ <span class="text-green-400">أحمد رحمن</span>!
+        👋 مرحبًا بك في الخدمة الرسمية لـ <span class="text-green-400">Ruub</span>!
       </div>
+      
       <p class="max-w-xl mb-8 text-gray-300">
         انضم إلى آلاف المستخدمين الذين يحققون أرباحًا بفضل ذكائنا الاصطناعي في ألعاب Aviator و Mines و Penalty. دقة 98%، توقعات فورية، وسحب فوري للأرباح!
       </p>
@@ -83,11 +85,11 @@
       <div id="errorBox" class="hidden bg-red-600 p-6 rounded-xl max-w-md mx-auto mt-6 shadow-2xl border-2 border-red-400">
         <h2 class="text-xl font-bold mb-2">⚠️ لم يتم العثور على إيداع</h2>
         <p class="mb-4">يبدو أن رصيدك فارغ. يرجى إيداع ما لا يقل عن <strong>5 دينار بحريني (أو أكثر)</strong> لفتح الوصول إلى الإشارات والبدء في تحقيق الأرباح.</p>
-        <a href="https://reffpa.com/L?tag=d_5134716m_45425c_&site=5134716&ad=45425&r=registration" target="_blank" id="depositButton" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition transform hover:scale-105">
+        <a href="https://reffpa.com/L?tag=d_3290065m_97c_&site=3290065&ad=97&r=registration" target="_blank" id="depositButton" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition transform hover:scale-105">
           أودع الآن في 1xBet
         </a>
         <div class="mt-6 bg-red-900 bg-opacity-60 text-white p-4 rounded-lg font-bold text-center border border-red-400">
-          <div class="mb-1 text-lg">الرمز الترويجي الخاص بك: <span class="bg-black p-1 px-2 rounded text-green-400 font-mono select-all">JOS88</span></div>
+          <div class="mb-1 text-lg">الرمز الترويجي الخاص بك: <span class="bg-black p-1 px-2 rounded text-green-400 font-mono select-all">FARAH100</span></div>
           <div class="text-sm mt-2">تذكر التسجيل <span class="underline text-yellow-300">فقط</span> بهذا الرمز للوصول الكامل إلى جميع الميزات!</div>
         </div>
       </div>
@@ -157,7 +159,6 @@
         document.getElementById("connectionSuccess").classList.remove("hidden");
         document.getElementById("errorBox").classList.add("hidden");
         
-        // محاكاة إضافة سطر في الكونسول
         const consoleBox = document.getElementById("console");
         const newLog = document.createElement("p");
         newLog.innerText = `> [CONNECT] تم ربط المستخدم ${userId} بنجاح.`;
@@ -168,7 +169,6 @@
     document.getElementById("getSignalButton").addEventListener("click", () => {
       document.getElementById("errorBox").classList.remove("hidden");
       
-      // محاكاة خطأ في الكونسول
       const consoleBox = document.getElementById("console");
       const errLog = document.createElement("p");
       errLog.style.color = "red";
